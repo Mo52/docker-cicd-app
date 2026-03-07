@@ -1,1 +1,12 @@
-name: Docker Build Testecho on:echo   push:echo     branches: [ "main" ]echo jobs:echo   build:echo     runs-on: ubuntu-latestecho     steps:echo       - name: Checkout codeecho         uses: actions/checkout@v4echo       - name: Build Docker Imageecho         run: docker build . --file Dockerfile --tag my-flask-app:latest
+name: Docker Build Test
+on:
+  push:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Build Docker Image
+        run: docker build . --file Dockerfile --tag my-flask-app:latest
