@@ -1,0 +1,25 @@
+To see in git
+---
+git add .
+git commit -m "testing connection"
+git push origin main
+
+
+
+-------------------
+only pytest:
+
+pyhon test_app.py
+
+------------------
+
+to docker build and run
+
+docker build -t my-python-app .
+
+
+docker run -p 5000:5000 my-python-app
+
+
+
+
