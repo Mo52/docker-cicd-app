@@ -17,10 +17,7 @@ jobs:
       # ২. ডকার হাবে লগইন করা (এটিই CD-এর প্রধান অংশ)
       - name: Login to Docker Hub
         uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
+     
       # ৩. ডকার ইমেজ বিল্ড করা এবং সরাসরি পুশ করা
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
