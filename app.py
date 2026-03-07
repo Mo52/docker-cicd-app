@@ -37,7 +37,8 @@ def index():
     display_text = ""
     if request.method == 'POST':
         user_input = request.form.get('user_input')
-        display_text = f"হ্যালো, {user_input}! ডকার কন্টেইনার থেকে স্বাগতম।"
+        display_text = f"হ্যালো, {user_input}! আপনার CI পাইপলাইন চমৎকারভাবে কাজ করছে।"
+        #display_text = f"হ্যালো, {user_input}! ডকার কন্টেইনার থেকে স্বাগতম।"
     return render_template_string(HTML_TEMPLATE, display_text=display_text)
 
 if __name__ == "__main__":
