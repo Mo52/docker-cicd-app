@@ -1,32 +1,31 @@
-name: Flask App CI/CD Pipeline
+name: Flask App CI Pipeline
 
 on:
   push:
     branches: [ "main" ]
-  workflow_dispatch: # এটি দিলে আপনি ম্যানুয়ালিও রান করতে পারবেন
 
 jobs:
-  build-and-deploy:
+  test-and-build:
     runs-on: ubuntu-latest
 
     steps:
-      # ১. গিটহাব থেকে আপনার কোড কপি করা
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # ২. ডকার হাবে লগইন করা (এটিই CD-এর প্রধান অংশ)
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-     
-      # ৩. ডকার ইমেজ বিল্ড করা এবং সরাসরি পুশ করা
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          context: .
-          push: true
-          # 'flask-app' এর জায়গায় আপনি আপনার পছন্দমতো নাম দিতে পারেন
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:latest 
+          python-version: '3.9'
 
-      # ৪. (ঐচ্ছিক) সফল হলে একটি মেসেজ দেখানো
-      - name: Success Message
-        run: echo "CI/CD Pipeline successful! Image pushed to Docker Hub."
+      # টেস্টের জন্য প্রয়োজনীয় লাইব্রেরি ইনস্টল করা
+      - name: Install dependencies
+        run: |
+          pip install flask pytest
+
+      # আপনার তৈরি করা টেস্ট ফাইলটি রান করা
+      - name: Run Pytest
+        run: pytest test_app.py
+
+      # টেস্ট পাস করলেই ডকার ইমেজ বিল্ড হবে
+      - name: Build Docker Image
+        run: docker build . --file Dockerfile --tag flask-app:test
