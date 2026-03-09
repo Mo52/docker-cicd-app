@@ -9,13 +9,15 @@ git push origin main
 -------------------
 only pytest:
 
-pyhon test_app.py
+python test_app.py
 
 ------------------
 
 to docker build and run
 
 docker build -t my-python-app .
+
+
 
 
 docker run -p 5000:5000 my-python-app
